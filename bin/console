@@ -2,17 +2,21 @@
 <?php
 
 use App\ClassAuthorStatisticCommand;
+use App\ClassInfoStatisticCommand;
 use Symfony\Component\Console\Application;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $application = new Application('PHP Project Statistic');
 
-$analyzer = new \App\Author\ClassAuthorAnalyzer(
+$analyzerAuthor = new \App\Author\ClassAuthorAnalyzer(
         __DIR__ . '/../src',
         'App'
 );
-$application->add(new ClassAuthorStatisticCommand($analyzer));
+$analyzerInfo = new \App\Info\ClassInfoAnalyzer();
+
+$application->add(new ClassAuthorStatisticCommand($analyzerAuthor));
+$application->add(new ClassInfoStatisticCommand($analyzerInfo));
 
 $exitCode = $application->run();
 exit($exitCode);
